@@ -1,0 +1,10 @@
+{% extends "admin/master.html" %}
+{% block body %}
+
+{% if current_user.is_admin %}
+  <p>Welcome to the admin panel {{ current_user.username }}!</p>
+{% else %}
+  <p>Hello, please login as an admin before accessing this panel
+  <a href="{{ url_for('myaccount') }}">Login</a></p>
+{% endif %}
+{% endblock %}

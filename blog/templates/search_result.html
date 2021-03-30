@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<section>
+    <h3 id="search__results__heading">Showing the result for "{{ search }}"</h3>
+    <div class="search__results">
+      {% if posts %}
+          {% for post in posts %}
+          <p id="search__results1"><a href="{{ url_for('post', post_id=post.id) }}">{{ post.title|safe }} <br />{{ post.content }}</a></p>
+          {% endfor %}
+      {% else %}
+          <p>No result found for {{ search }}</p>
+      {% endif %}
+    </div>
+</section>
+
+{% endblock %}

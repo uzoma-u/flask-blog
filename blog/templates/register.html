@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% if error %}
+  <p class="error"><strong>Error:</strong> {{ error }}</p>
+{% endif %}
+
+<Section>
+  <div class="register">
+    <div id="register__heading">
+    <h3>Welcome! <br />Sign up to become a member</h3></div>
+
+    <div id="registration__form">
+        <form method="Post" action="/register" id="">
+          {{ form.csrf_token }}
+          <p class="label">{{ form.username.label }}<br />
+          {{ form.username(class_="input")}}</p>
+          {% if form.username.errors %}
+              {% for error in form.username.errors %}
+                  <p><span class="errors">{{ error }}</span></p>
+              {% endfor %}
+          {% endif %}
+
+          <P class="label">{{ form.firstname.label }}<br />
+          {{ form.firstname(class_="input")}}</p>
+          <p class="label">{{ form.lastname.label }} <br />
+          {{ form.lastname(class_="input") }}</p>
+
+          <p class="label">{{ form.email.label }}<br />
+          {{ form.email(class_="input") }}</p>
+          {% if form.email.errors %}
+              {% for error in form.email.errors %}
+                  <p><span class="error">{{ error }}</span></p>
+              {% endfor %}
+          {% endif %}
+
+          <p class="label">{{ form.password.label }}<br />
+            {{ form.password(class_="input") }}</p>
+          {% if form.password.errors %}
+              {% for error in form.password.errors %}
+                  <p><span class="error">[{{ error }}]</span></p>
+              {% endfor %}
+          {% endif %}
+          <p class="label">{{ form.confirm_password.label }}<br />
+          {{ form.confirm_password(class="input") }}</p>
+          {% if form.confirm_password.errors %}
+              {% for error in form.confirm_password.errors %}
+                  <p><span class="error">{{ error }}</span></p>
+              {% endfor %}
+          {% endif %}
+          <input type="submit" class="submit" value="Register">
+        </form>
+      </div>
+    <div class="log__link">Already have an account? <a href="{{ url_for('myaccount') }}">Sign in</a></div>
+
+  </div>
+</section>
+{% endblock %}

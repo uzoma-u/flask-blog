@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" alt="alternate" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='img/' + 'icon.png') }}">
+    <title>Uzoma Udenkwor's Website</title>
+  </head>
+  <body>
+    {% block body %}
+      <header>
+        <nav>
+            <div class="navbar" id="topnav">
+                <a href="{{ url_for('home') }}" class="home"><u>U.U</u></a>
+                <div id="homelinks" class="home__links">
+                    <a href="{{ url_for('about') }}" class="about">About</a>
+                    <a href="{{ url_for('allposts') }}" class="posts">Posts</a>
+
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('logout') }}" class="reg"> Hi {{ current_user.firstname.title() }}!|Logout</a>
+                    {% else %}
+                    <a href="{{ url_for('myaccount') }}" class="logout">Account|Hi GUEST!</a>
+                    {% endif %}
+                    <a href="javascript:void(0);" type="submit" id="search__button" onclick="displaySearchBar()"><i class="fa fa-search"></i></a>
+
+                    <div id="search__form">
+                        <form id="search" action="{{ url_for('search_result', search='search') }}" method="GET" id="formsearch">
+                            <input type="text"  name="search" id="search__input">
+                        </form>
+                    </div>
+                  </div>
+                <a href="javascript:void(0);" onclick="toggle()" id="ham-button" class="icon"><i class="fa fa-bars"></i></a>
+            </div>
+        </nav>
+      </header>
+      <main>
+          <div class="flashes">
+              {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                  {% for message in messages %}
+                      {{ message }}
+                  {% endfor %}
+              {% endif %}
+              {% endwith %}
+        </div>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <div id="footer__content">
+            <div class="footer__address">
+                <address>
+                    <h2>Contact</h2>
+                    <p><a href="mailto:vera.uzoma@yahoo.com?subject=feedback">vera.uzoma@yahoo.com</a></p>
+                    <p>0788-8494-122</p>
+                    <p>The Bakery, Cardiff</p>
+                </address>
+            </div>
+            <div class="footer__social-links">
+                <a href="https://www.linkedin.com/in/uzoma-udenkwor/" id="linkedin"><i class="fa fa-linkedin"></i>Linkedin</a>
+                <a href="https://github.com/uzoma-u" id="git"><i class="fa fa-github"></i>Github</a>
+                <a href="https://twitter.com/uzoma_vera" id="twitter"><i class="fa fa-twitter-square"></i>Twitter</a>
+                <a href="https://www.instagram.com/verrah/" id="instagram"><i class="fa fa-instagram"></i>Instagram</a>
+            </div>
+        </div>
+        <p class="copyright__info">&copy; 2021 All rights reserved|<a href="{{ url_for('privacy') }}">Privacy Policy</a></p>
+    </footer>
+    {{ moment.include_jquery() }}
+    {{ moment.include_moment() }}
+    <script src="{{ url_for('static', filename='blogjs.js') }}"></script>
+    {% endblock %}
+  </body>
+</html>

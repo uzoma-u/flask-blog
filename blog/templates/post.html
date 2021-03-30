@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<article>
+    <div class="individualpost__container">
+        <div id="individualpost__title"><h1>{{ post.title }}</h1>
+          <p>by {{ post.user.username.title() }},
+        {{ moment(post.date).format("LL") }}</p></div>
+        <div id="individualpost__image"><img src="{{ url_for('static', filename='img/' + post.image_file) }}" /></div>
+        <div id="individualpost__content"><p> {{ post.content | safe }} </p></div>
+    </div>
+</article>
+
+<section class="individual">
+  <div class="comments__section">
+      <div class="comments__likes">
+          <h4 id="comments">{{ comments.count() }} Comments</h4>
+          <h6><a href="{{ url_for('privacy') }}">U.U Privacy Policy</a></h6>
+          <h4 id="likes">{{ post.likers.count() }} Likes</h4>
+      </div>
+      <hr/>
+      <div class="liking">
+        {% if current_user.is_authenticated %}
+            {% if not current_user.is_liking(post) %}
+                <a href="{{ url_for('like', post_id=post.id, action='like') }}"class="liking"><button><i class="fa fa-thumbs-up"></i>Like</button></a>
+            {% else %}
+                <a href="{{ url_for('unlike', post_id=post.id, action='unlike') }}"class="liking"><button><i class="fa fa-thumbs-down"></i>Unlike</button></a>
+            {% endif %}
+        {% else %}
+            <a href="{{ url_for('like', post_id=post.id, action='like') }}"class="liking"><button><i class="fa fa-thumbs-up"></i>Like</button></a>
+        {% endif %}
+      
+      </div>
+      <div class="comments">
+          <form method="POST" action="{{ url_for('post_comment', post_id=post.id) }}">
+              {{ form.hidden_tag() }}
+              <p><i class="fa fa-user"></i>{{ form.comment(class_="comment__form") }}</p>
+              {% for error in form.comment.errors %}
+              <span style="color: red;">{{ error }}</span>
+              {% endfor %}
+              <p>{{ form.submit(class_="comment__form__submit") }}</p>
+          </form>
+          <hr class="hor__line"/>
+          {% for comment in comments %}
+              <p id="comments__body"><b>{{ comment.user.username.title() }} said on:</b>
+          {{ moment(comment.date).format("LL") }}<br />{{ comment.content }}</p>
+          {% endfor %}
+          <hr/>
+      </div>
+  </div>
+</section>
+
+{% endblock %}

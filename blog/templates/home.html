@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<main>
+    <div id="one__div"><h2>Make The Software<br />Usable<h2></div>
+    <section class="">
+        {% for post in posts %}
+          <div class="homepost__section">
+            <div id="homepost__image"><a href="{{ url_for('post', post_id=post.id) }}"><img src="{{ url_for('static', filename='img/' + post.image_file) }}" /></a></div>
+            <div class="homepost__body">
+                <div id="homepost__title"><a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a><br />&nbsp by {{ post.user.username }}</div>
+                <div id="homepost__content"><p id="demo">{{ post.content|safe }}</p></div>
+                <div id="date__font">{{ moment(post.date).format('LL') }} . 2 min read</div>
+            </div>
+          </div>
+        {% endfor %}
+    </section>
+</main>
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<section>
+    <div class="about__me">
+        <div id="about__me__"><h1 class="about__me__topic">Hi, I'm Vera!</h1><br /><br />
+            <p>I am currently developing skills for database role</p>
+            <p>Skills: Python / SQL / JavaScript<br /> HTML&CSS / Flask</p>
+        </div>
+        <br /><br />
+        <div class="about__me__body">
+            <div id="about__me1">
+                <img src="{{ url_for('static', filename='img/' + 'me2.jpg') }}" alt='mypicture' id="my__picture">
+            </div>
+        <!-- <img src="{{ url_for('static', filename='/img/' + 'me2.jpg') }}" alt='phone picture' id="aboutme2"> -->
+            <div id="about__me2">
+                <h2></h2>
+                <p class="about__me__text">More than 3 years experience in a customer service role,
+                delivering excellent service during inquiries and query resolutions.<br />
+                My work experience has been mostly in Telecommunication industry.<br /><br /><br />
+                Where I worked with in-house CRM and Agility systems to troubleshoot customers billings issues, data activations and related services.<br />
+                My experience with these systems informed my interest in learning about database and programming languages.</p>
+            </div>
+        </div>
+     </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<main class="allposts__main">
+    <section class="allposts__section">
+        <div class="sort__options">
+          <a href="{{ url_for('allposts', sort='desc') }}" id="sort__option1">Sort by Recent</a>
+          <a href="{{ url_for('allposts', sort='asc') }}" id="sort__option2">Sort by Old Post</a>
+        </div>
+        <hr />
+    </section>
+    <section>
+        {% for post in posts %}
+            <div class="allposts__section1">
+                <div id="allposts__date"><b>{{ moment(post.date).format("LL") }}</b></div>
+                <div id="allposts__image1"><a href="{{ url_for('post', post_id=post.id) }}">
+                    <img src="{{ url_for('static', filename='img/' + post.image_file) }}" /></a></div>
+                <div id="allposts__title1"><a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></div>
+                <div id="allposts__content1">{{ post.content | safe }}</div>
+                <div id="allposts__username1"><h5>&nbsp by {{ post.user.username.title() }}</h5></div>
+          </div>
+          <hr />
+      {% endfor %}
+    </section>
+</main>
+
+
+
+
+
+{% endblock content %}
