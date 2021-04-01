@@ -5,8 +5,8 @@ from flask_moment import Moment
 
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "d6df90423a90ace08d0e0d81817668adfae7763f100db87e"
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://c2067643:Simplicity5409*@csmysql.cs.cf.ac.uk:3306/c2067643_database1"
+app.config["SECRET_KEY"] = ""
+app.config["SQLALCHEMY_DATABASE_URI"] = ""
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
